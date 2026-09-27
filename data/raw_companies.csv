@@ -1,0 +1,231 @@
+company_name,domain,source
+Amplitude,amplitude.com,yc_directory
+Agent Relay,agentrelay.com,yc_directory
+ByteAsk,byteask.ai,yc_directory
+Clueso,clueso.io,yc_directory
+DrDroid,drdroid.io,yc_directory
+SuperAPI,trysuperapi.com,yc_directory
+Floworks,floworks.ai,yc_directory
+Mirrors,mirrors.ai,yc_directory
+Workers IO,workers.io,yc_directory
+Mentlio,mentlio.com,yc_directory
+Simantic,simantic.ai,yc_directory
+Hoplite,hoplite.ai,yc_directory
+Linzumi,linzumi.com,yc_directory
+Reason Machines,reasonmachines.com,yc_directory
+Keyframe Labs,keyframelabs.com,yc_directory
+Replicas,replicas.ai,yc_directory
+Quotient Labs,quotient-labs.com,yc_directory
+Glean,glean.com,greenhouse_search
+Amplemarket,amplemarket.com,greenhouse_search
+Vercel,vercel.com,greenhouse_search
+BrightHire,brighthire.ai,greenhouse_search
+Nextdoor,nextdoor.com,greenhouse_search
+Level AI,levelai.com,lever_search
+Acceldata,acceldata.io,lever_search
+PointClickCare,pointclickcare.com,lever_search
+Extreme Networks,extremenetworks.com,lever_search
+Everbridge,everbridge.com,lever_search
+OpenAI,openai.com,manual
+Anthropic,anthropic.com,manual
+Stripe,stripe.com,manual
+HubSpot,hubspot.com,manual
+Intercom,intercom.com,manual
+Notion,notion.com,manual
+Linear,linear.app,manual
+Supabase,supabase.com,manual
+Vercel,vercel.com,manual
+PostHog,posthog.com,manual
+Retool,retool.com,manual
+Temporal,temporal.io,manual
+Sentry,sentry.io,manual
+Ramp,ramp.com,manual
+Brex,brex.com,manual
+Mistral AI,mistral.ai,manual
+Weights & Biases,wandb.ai,manual
+Pinecone,pinecone.io,manual
+Databricks,databricks.com,manual
+Snowflake,snowflake.com,manual
+dbt Labs,dbtlabs.com,manual
+Figma,figma.com,manual
+GitLab,gitlab.com,manual
+MongoDB,mongodb.com,manual
+Okta,okta.com,manual
+Twilio,twilio.com,manual
+Datadog,datadoghq.com,manual
+Cloudinary,cloudinary.com,manual
+Airbyte,airbyte.com,manual
+LaunchDarkly,launchdarkly.com,manual
+Mixpanel,mixpanel.com,manual
+Amplitude,amplitude.com,manual
+Grafana Labs,grafana.com,manual
+ClickHouse,clickhouse.com,manual
+Confluent,confluent.io,manual
+HashiCorp,hashicorp.com,manual
+Circle,circle.com,manual
+Plaid,plaid.com,manual
+Mercury,mercury.com,manual
+Finch,finch.com,manual
+Snyk,snyk.io,manual
+Airtable,airtable.com,manual
+Zapier,zapier.com,manual
+Asana,asana.com,manual
+Atlassian,atlassian.com,manual
+Snowplow,snowplow.io,manual
+ClickUp,clickup.com,manual
+Freshworks,freshworks.com,manual
+Braze,braze.com,manual
+Gong,gong.io,manual
+6sense,6sense.com,manual
+Drift,drift.com,manual
+Miro,miro.com,manual
+Cockroach Labs,cockroachlabs.com,manual
+Neon,neon.tech,manual
+PlanetScale,planetscale.com,manual
+Convex,convex.dev,manual
+Elastic,elastic.co,manual
+New Relic,newrelic.com,manual
+Docker,docker.com,manual
+Clari,clari.com,manual
+Rippling,rippling.com,manual
+Deel,deel.com,manual
+Pendo,pendo.io,manual
+Algolia,algolia.com,manual
+CircleCI,circleci.com,manual
+Cohere,cohere.com,manual
+Scale AI,scale.com,manual
+Harness,harness.io,manual
+Tines,tines.com,manual
+Apollo.io,apollo.io,manual
+Brevo,brevo.com,manual
+Sourcegraph,sourcegraph.com,manual
+Modal,modal.com,manual
+Replicate,replicate.com,manual
+LangChain,langchain.com,manual
+Unstructured,unstructured.io,manual
+Caseware,caseware.com,manual
+Dun & Bradstreet,dnb.com,manual
+Palantir,palantir.com,manual
+Glean Inc.,www.glean.com,manual
+Amplitude Inc.,www.amplitude.com,manual
+Vercel Inc.,www.vercel.com,manual
+Datadog Inc.,www.datadoghq.com,manual
+Mercury Inc.,www.mercury.com,manual
+Scale AI Inc.,www.scale.com,manual
+Mercury Systems,mrcy.com,manual
+Scale Computing,scalecomputing.com,manual
+Apollo Hospitals,apollohospitals.com,manual
+LinearB,linearb.io,manual
+Clayton,clayton.com,manual
+Hightouch,hightouch.com,manual
+Weaviate,weaviate.io,manual
+Baseten,baseten.co,manual
+Arize AI,arize.com,manual
+Chroma,trychroma.com,manual
+Fivetran,fivetran.com,manual
+Modal Labs,www.modal.com,manual
+Clay,clay.com,manual
+Apollo.io,apollo.io,manual
+Aiven,aiven.io,manual
+MotherDuck,motherduck.com,manual
+Astronomer,astronomer.io,manual
+Dagster,dagster.io,manual
+Inngest,inngest.com,manual
+Browserbase,browserbase.com,manual
+Humanloop,humanloop.com,manual
+Langfuse,langfuse.com,manual
+Trigger.dev,trigger.dev,manual
+Mintlify,mintlify.com,manual
+Retell AI,retellai.com,manual
+Cartesia,cartesia.ai,manual
+Decagon,decagon.ai,manual
+Vanta,vanta.com,manual
+Drata,drata.com,manual
+Wiz,wiz.io,manual
+Turso,turso.tech,manual
+Unkey,unkey.com,manual
+Together AI,together.ai,manual
+Stainless,stainless.com,manual
+OneSignal,onesignal.com,manual
+Stytch,stytch.com,manual
+Pipedream,pipedream.com,manual
+Airwallex,airwallex.com,manual
+Workato,workato.com,manual
+Groq,groq.com,manual
+Prefect,prefect.io,manual
+Exa,exa.ai,manual
+Portkey,portkey.ai,manual
+Braintrust,braintrust.dev,manual
+Nango,nango.dev,manual
+Honeycomb,honeycomb.io,manual
+Convex Labs,convexlabs.com,manual
+Incident.io,incident.io,manual
+Tines Technologies,tines.com,manual
+PostHog Inc.,posthog.com,manual
+Axiom,axiom.co,manual
+Rillet,rillet.com,manual
+Cluely,cluely.com,manual
+SaaSFrame,saasframe.io,manual
+Kong,konghq.com,manual
+Coda,coda.io,manual
+Clerk,clerk.com,manual
+AssemblyAI,assemblyai.com,manual
+Deepgram,deepgram.com,manual
+Resend,resend.com,manual
+WorkOS,workos.com,manual
+Oso,osohq.com,manual
+Descope,descope.com,manual
+Sierra,sierra.ai,manual
+Harvey,harvey.ai,manual
+Hebbia,hebbia.com,manual
+Sakana AI,sakana.ai,manual
+Crusoe,crusoe.ai,manual
+Flock Safety,flocksafety.com,manual
+Fireworks AI,fireworks.ai,manual
+LiveKit,livekit.io,manual
+Aserto,aserto.com,manual
+Metronome,metronome.com,manual
+Oxide Computer,oxide.computer,manual
+Attio,attio.com,manual
+Loom,loom.com,manual
+Canva,canva.com,manual
+Render,render.com,manual
+Railway,railway.com,manual
+Fly.io,fly.io,manual
+Tailscale,tailscale.com,manual
+Pusher,pusher.com,manual
+Sumo Logic,sumologic.com,manual
+Segment,segment.com,manual
+Workday,workday.com,manual
+Salesforce,salesforce.com,manual
+ServiceNow,servicenow.com,manual
+Zendesk,zendesk.com,manual
+SAP,sap.com,manual
+Oracle,oracle.com,manual
+Cloudflare,cloudflare.com,manual
+GitHub,github.com,manual
+JetBrains,jetbrains.com,manual
+Raindrop,raindrop.ai,manual
+Resolve AI,resolve.ai,manual
+Exein,exein.io,manual
+Synthefy,synthefy.com,manual
+RWX,rwx.com,manual
+Sapiom,sapiom.ai,manual
+Naive,usenaive.ai,manual
+DataBahn,databahn.ai,manual
+Credible Data,credibledata.com,manual
+Weave,weaveos.com,manual
+Runta,runta.com,manual
+Infinity,infinity.inc,manual
+MyDecisive,mydecisive.ai,manual
+Netris,netris.io,manual
+Kodesage,kodesage.ai,manual
+Niteshift,niteshift.dev,manual
+Kyber,kyber.tech,manual
+OpenObserve,openobserve.ai,manual
+RevEng.AI,reveng.ai,manual
+Arato,arato.ai,manual
+Bespoke Labs,bespokelabs.ai,manual
+8090,8090.ai,manual
+Expanse,expanse.sh,manual
+Parasail,parasail.io,manual
