@@ -1,0 +1,51 @@
+company_id,name,domain,text_len
+6,superapi,trysuperapi.com,0
+16,replicas,replicas.ai,0
+63,hashicorp,hashicorp.com,0
+116,apollo hospitals,apollohospitals.com,0
+203,oracle,oracle.com,0
+190,canva,canva.com,315
+219,mydecisive,mydecisive.ai,2112
+218,infinity,infinity.inc,2919
+56,airbyte,airbyte.com,3352
+97,tines,tines.com,3910
+228,8090,8090.ai,4261
+103,langchain,langchain.com,4762
+189,loom,loom.com,5036
+213,naive,usenaive.ai,5438
+117,linearb,linearb.io,5501
+155,exa,exa.ai,5667
+88,clari,clari.com,5873
+226,arato,arato.ai,5962
+39,temporal,temporal.io,6204
+60,grafana labs,grafana.com,6542
+50,gitlab,gitlab.com,6780
+1,amplitude,amplitude.com,7027
+209,exein,exein.io,7240
+205,github,github.com,7339
+43,mistral ai,mistral.ai,7413
+143,wiz,wiz.io,7589
+211,rwx,rwx.com,7972
+186,metronome,metronome.com,8242
+94,cohere,cohere.com,8588
+75,freshworks,freshworks.com,8698
+195,pusher,pusher.com,8898
+71,asana,asana.com,9222
+131,dagster,dagster.io,9515
+81,cockroach labs,cockroachlabs.com,9602
+34,linear,linear.app,10190
+185,aserto,aserto.com,10390
+224,openobserve,openobserve.ai,10626
+3,byteask,byteask.ai,10887
+171,assemblyai,assemblyai.com,11162
+55,cloudinary,cloudinary.com,11609
+46,databricks,databricks.com,12075
+52,okta,okta.com,12651
+77,gong,gong.io,13479
+91,pendo,pendo.io,14173
+168,kong,konghq.com,16050
+126,clay,clay.com,17661
+19,amplemarket,amplemarket.com,20000
+86,new relic,newrelic.com,20000
+181,crusoe,crusoe.ai,20000
+214,databahn,databahn.ai,20000
