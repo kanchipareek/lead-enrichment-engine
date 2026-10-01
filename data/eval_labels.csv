@@ -1,9 +1,9 @@
 company_id,verdict,note
 6,unsure,
-16,accept,
-63,accept,
+16,unsure,
+63,unsure,
 116,reject,
-203,accept,
+203,unsure,
 190,accept,
 219,accept,
 218,accept,
