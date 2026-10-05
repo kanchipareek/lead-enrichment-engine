@@ -227,3 +227,4 @@ __marimo__/
 # secrets
 .env
 
+data/idempotency_snapshot.json
