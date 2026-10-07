@@ -118,3 +118,13 @@ Was quoting "199 fetched, 196 usable, 19 empty, 24 failures" — doesn't add up,
 because it mixed per-company and per-page counts. Real numbers, per attempt:
 564 attempts = 540 ok + 24 failed, across 23 companies. State it that way from
 now on.
+
+
+### 2026-10-07 — Devtools threshold 80 → 70, on evidence
+**Why.** The ground-truth eval showed precision 1.00 but recall 0.34 — the threshold
+of 80 excluded 19 genuine dev-tools targets, all scoring 60-75. Lowering it to 70
+raises recall to 0.69 with no precision loss. The earlier raise to 80 was a
+heuristic ("81% feels too many"); the labels contradicted it.
+**Caveat.** The eval sample is stratified and the labels are rule-derived, so this
+is a consistency check against the ICP definition, not a human-fit eval. A
+human-judgement pass is the next step.

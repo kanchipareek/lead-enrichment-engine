@@ -23,7 +23,7 @@ INSERT INTO icp_configs (config_name, feature, weight) VALUES
 DROP TABLE IF EXISTS icp_thresholds;
 CREATE TABLE icp_thresholds (config_name TEXT PRIMARY KEY, threshold REAL);
 INSERT INTO icp_thresholds (config_name, threshold) VALUES
- ('generic_b2b_saas',70),('devtools_ai_infra',80);
+ ('generic_b2b_saas',70),('devtools_ai_infra',70);
 
 DROP VIEW IF EXISTS company_features;
 CREATE VIEW company_features AS
