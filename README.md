@@ -158,7 +158,7 @@ Known limitations
 . No holdout — the threshold was tuned on the same labels it is reported on.
 . Small sample — 30 pairs per config.
 . 33 companies came back sells_to = unknown and I have not hand-checked them. They lose the audience weight, so this is a real, unmeasured error source.
-. Reach is thin: only 25 of 127 qualified accounts had a contact (20%). 102 have nobody to email yet.
+. Reach is thin: only 25 of 138 qualified accounts had a contact (18%). 113 have nobody to email yet.
 . Emails are predicted patterns, not verified addresses. Hunter's free tier could not cover ~700 candidates, so I documented the gap instead of pretending.
 . No CRM or workflow tooling in this project — no Clay, no n8n, no HubSpot. Those come in Projects 2 and 5.
 . GitHub and Apollo as contact sources: skipped for now. GitHub org members are mostly IC engineers, and Apollo's free credits don't stretch far.
