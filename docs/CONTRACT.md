@@ -18,7 +18,7 @@ can depend on.
 | `contact_candidates` | one candidate email per contact | `contact_id`, `email`, `pattern`, `reliability`, `status` |
 | `icp_configs` | one (config, feature) weight | `config_name`, `feature`, `weight` |
 | `icp_thresholds` | the cut-off per config | `config_name`, `threshold` |
-| `icp_scores` | one company x one config | `company_id`, `config_name`, `score`, `qualified`, `reason` |
+
 
 ## The enriched fields (`company_fields.field_name`)
 
@@ -63,13 +63,24 @@ Two configs: `generic_b2b_saas`, `devtools_ai_infra`.
 **Free to change (Project 1 internals):** scoring weights (`icp_configs`),
 thresholds (`icp_thresholds`), crawl logic, the email waterfall.
 
+
+## The scoring VIEWS (not tables — computed on read)
+
+Scoring is computed from `company_fields` + `icp_configs` + `icp_thresholds`,
+not stored. **Read these views, not the `icp_scores` table** (it exists in the
+schema but is not populated).
+
+| View | One row = |
+|---|---|
+| `company_features` | one company x one feature (the scored signals) |
+| `company_scores` | one company x one config (the score) |
+| `qualified` | a company that cleared the threshold for a config |
+| `disqualified` | a company that did not |
+
 ## How to consume it
 
 ```python
 import sqlite3
 db = sqlite3.connect("data/lead_enrichment.db")
-rows = db.execute("""
-    SELECT c.name, s.config_name, s.score, s.reason
-    FROM icp_scores s JOIN companies c ON c.id = s.company_id
-    WHERE s.qualified = 1
-""").fetchall()
+rows = db.execute("SELECT DISTINCT company_id FROM qualified").fetchall()
+
