@@ -51,14 +51,17 @@ Every `company_fields` row carries `source` (which stage produced it),
 
 ## Qualification state
 
-`icp_scores.qualified` is 1 when `score >= threshold` (from `icp_thresholds`)
-for that `config_name`. `icp_scores.reason` records which features fired.
+A company qualifies for a config when `score >= threshold` (from `icp_thresholds`).
+Read it from the `qualified` view; `company_scores` holds the per-company,
+per-config score and its `reason` (which features fired).
 Two configs: `generic_b2b_saas`, `devtools_ai_infra`.
 
 ## Stable vs free to change
 
 **Stable — don't break these:** the table names, the `field_name` set, the
-`icp_scores.qualified` flag, and the `source` / `source_url` provenance columns.
+`qualified` view (and its `company_id` / `config_name` columns), and the
+`source` / `source_url` provenance columns.
+
 
 **Free to change (Project 1 internals):** scoring weights (`icp_configs`),
 thresholds (`icp_thresholds`), crawl logic, the email waterfall.
