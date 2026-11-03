@@ -1,9 +1,3 @@
-
-**Check the table/column names against reality** before committing — run `python scripts/show_schema.py` and fix any that differ.
-
-## 2. The STAR story — save as `docs/star-story.md`
-
-```markdown
 # STAR story — Project 1 (lead enrichment engine)
 
 **Situation.** A GTM team had 230 messy company rows from four sources —
