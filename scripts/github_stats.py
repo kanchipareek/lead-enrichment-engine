@@ -8,6 +8,12 @@ HEADERS = {"User-Agent": "lead-enrichment-bot/0.1", "Accept": "application/vnd.g
 if TOKEN:
     HEADERS["Authorization"] = f"Bearer {TOKEN}"
 
+# Only these tiers count as a confirmed organisation. A proposal written by
+# github_find.py (a fuzzy candidate that has not been verified) must never
+# have stats attributed to it.
+CONFIRMED = ("exact", "verified", "manual")
+
+
 def api(url):
     for attempt in range(5):
         try:
@@ -26,16 +32,34 @@ def api(url):
             time.sleep(10)
     raise RuntimeError("gave up after 5 tries")
 
+
 def field(conn, cid, name, value, url):
     conn.execute("INSERT INTO company_fields (company_id, field_name, field_value, source, source_url, collected_at) "
                  "VALUES (?,?,?,?,?,datetime('now'))", (cid, name, str(value), "github", url or ""))
 
+
 def main():
     conn = sqlite3.connect(DB)
     done = {r[0] for r in conn.execute("SELECT company_id FROM company_fields WHERE field_name='github_repo_count'")}
-    rows = conn.execute("SELECT company_id, field_value FROM company_fields "
-                         "WHERE field_name='github_org' AND company_id NOT IN (%s) "
-                         "ORDER BY company_id" % (",".join(map(str, done)) or "-1")).fetchall()
+
+    # Select only companies whose github_org is backed by a confirmed match tier.
+    rows = conn.execute(
+        "SELECT o.company_id, o.field_value FROM company_fields o "
+        "JOIN company_fields m ON m.company_id = o.company_id AND m.field_name = 'github_match' "
+        "WHERE o.field_name='github_org' "
+        "  AND m.field_value IN ('exact','verified','manual') "
+        "  AND o.company_id NOT IN (%s) "
+        "ORDER BY o.company_id" % (",".join(map(str, done)) or "-1")).fetchall()
+
+    # Surface anything that was skipped, rather than dropping it silently.
+    unconfirmed = conn.execute(
+        "SELECT COUNT(*) FROM company_fields o "
+        "WHERE o.field_name='github_org' AND o.company_id NOT IN ("
+        "  SELECT company_id FROM company_fields WHERE field_name='github_match' "
+        "  AND field_value IN ('exact','verified','manual'))").fetchone()[0]
+    if unconfirmed:
+        print(f"skipping {unconfirmed} unconfirmed org(s) - no stats written for them")
+
     print(f"{len(rows)} orgs to fetch stats for")
     for k, (cid, login) in enumerate(rows, 1):
         print(f"[{k}/{len(rows)}] {login}", flush=True)
@@ -66,5 +90,7 @@ def main():
         time.sleep(1.0)
     print("done")
 
+
 if __name__ == "__main__":
     main()
+
