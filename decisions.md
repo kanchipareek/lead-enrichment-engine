@@ -12,7 +12,7 @@ joins, but I can add a field without touching the schema. Worth it.
 
 **28 Sep — stdlib only, SQL first.**
 No pandas, no requests. Two reasons: nothing to install / nothing to break, and
-every transformation lives in a .sql file in git so I can point at the exact rule
+Every cleaning, dedupe and scoring rule is a .sql file in git so I can point at the exact rule
 that produced any number. A Python loop full of logic is invisible in review; a
 SQL file isn't. More typing. Fine.
 
@@ -73,10 +73,8 @@ quiet is the whole point.
 Most dev-tools/AI companies sell to businesses; killing a lead because the page
 didn't say so is dumb. So `sells_to = unknown` is never a disqualifier.
 Correction (7 Oct): I called it "neutral" before and that was wrong. It's not
-disqualified, but it *does* lose the 30-point business weight. That's a penalty,
-not neutral. Anthropic is the proof — it loses those 30 points and lands in
-neither list. Whether 30 is the right number is a job for the ground-truth check,
-not a guess.
+disqualified, but it *does* loses the business weight (30 points in generic_b2b_saas, 5 in devtools_ai_infra). That's a penalty,
+not neutral. Anthropic is the proof — it loses those 30 points and lands in neither list to it loses those 30 points in generic_b2b_saas and still clears the dev-tools threshold at 70.
 
 **5 Oct — always report the baseline next to the agreement.**
 My eval set is a curated tech list, ~90% "accept". So "84% agreement" sounds bad
@@ -88,8 +86,7 @@ a flattering meaningless one.
 **6 Oct — thresholds 60 → 70 / 80.**
 At 60 a company cleared the bar on category + one signal, and 81% of everything
 qualified. That's not an ICP, that's the whole list. Looked at the score
-distribution, saw a pile-up right at 60/65, moved the line above it. Now 59 / 68
-(27% / 31%).
+distribution, saw a pile-up right at 60/65, moved the line above it. Now 59 / 68 (27% / 31%) — at threshold 80; superseded 7 Oct by 59 / 79.
 Being honest: the *weights* are still guesses. I tuned the threshold against the
 distribution, and that isn't validation. Needs ground-truth labels.
 
@@ -109,7 +106,7 @@ dies is a better story than a nicer coverage number.
 ## audits / corrections
 
 **7 Oct — how many qualified accounts can I actually reach?**
-Ran it: 25 of 127 (20%). Dev-tools 9/68, SaaS 16/59. 142 contacts total. So most
+Ran it: 25 of 138 (18%). Dev-tools 9/79, SaaS 16/59. 142 contacts total. So most
 qualified accounts have nobody to email. Real weakness, going in the README as-is,
 not buried.
 

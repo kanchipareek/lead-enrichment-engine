@@ -50,7 +50,7 @@ def call(prompt):
     req = urllib.request.Request(GROQ_URL, data=body, headers={
         "Content-Type": "application/json",
         "Authorization": f"Bearer {GROQ_KEY}",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent": "lead-enrichment-engine/1.0 (contact: kanchipareek32@gmail.com)"
     })
     for attempt in range(3):
         try:

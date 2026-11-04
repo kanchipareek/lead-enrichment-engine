@@ -11,7 +11,7 @@ everything up to deciding who is worth contacting. The other four projects read
 this database instead of building their own.
 
 **Stack:** Python + SQLite, standard library only. No pandas, no requests, no ORM.
-Every transformation is a `.sql` file in git, so when a number looks wrong I can
+Every cleaning, dedupe and scoring rule is a .sql file in git, so when a number looks wrong I can
 point at the exact rule that produced it.
 
 ## Architecture
@@ -48,19 +48,24 @@ point at the exact rule that produced it.
                          ▼
              ┌───────────────────────┐
              │  SQLite data contract │
-             │  accounts . contacts  │
-             │  signals  . scores    │
+             │  companies . fields   │
+             │  contacts . qualified │
              └───────────┬───────────┘
                          │
           ┌──────────────┼──────────────┐
           ▼              ▼              ▼
      Project 2      Project 3      Projects 4-5
 
+
 One file is the source of truth.
 
 **Tables:** `raw_sources`, `companies`, `merge_log`, `match_candidates`,
 `company_fields`, `crawl_log`, `contacts`, `contact_runs`, `contact_candidates`,
 `icp_configs`, `icp_thresholds`, `scoring_eval`.
+
+**Project 2 tables (created here, owned by the signal detector):** `signals`,
+`signal_deliveries`, `signal_candidates`, `webhook_events`.
+
 
 **Views (computed on read):** `company_features`, `company_scores`, `qualified`,
 `disqualified`, `email_waterfall`, `best_email`, `field_quality`, `crawl_failures`.
@@ -109,7 +114,6 @@ lead-enrichment-engine/
 │   ├── score_distribution.py     # score histogram
 │   ├── make_scoring_eval.py      # sampling for the scoring check
 │   ├── label_scoring.py          # labelling loop
-│   ├── label_blind.py            # blind labelling (no score shown)
 │   ├── eval_scoring.py           # scoring check
 │   ├── apply_labels.py           # rule-based labels
 │   ├── audit_coverage.py         # reach measurement
@@ -176,9 +180,9 @@ why Vercel scored 100 (devtools_ai_infra):
 |---|---|
 | raw rows in | 230 (4 sources, duplicates and traps planted on purpose) |
 | companies out | 218 (12 duplicates resolved, 0 false merges on my own traps) |
-| crawl | 564 attempts = 540 ok + 24 failed, across 23 companies |
+| crawl | 564 attempts = 540 ok + 24 failed (failures in 23 companies) |
 | GitHub orgs | 179 matched (130 exact, 31 verified, 18 by hand); 39 with none |
-| AI extraction | 199/199 extracted; 154/154 citations traced to source text |
+| AI extraction | 199/199 extracted; 154/154 citations traced in a 50-company hand-checked sample |
 | qualified | 59 (generic B2B SaaS) / 79 (dev tools + AI infra) = 138 unique accounts |
 | reach | 25 of 138 qualified accounts have a contact (18%) |
 | contacts | 142 people across 29 companies |
@@ -243,8 +247,8 @@ Don't read too much into those 1.00s. The labels are not independent of the scor
 I could see the scores while labelling, and the final labels came from the same
 category logic the scorer uses. So precision and recall here measure
 self-consistency, not correctness. I also tuned the threshold on these same 60
-pairs, which is leakage. And n=30 per config, so with zero false positives the true
-precision could be as low as ~0.89.
+pairs, which is leakage. And with 20 and 10 predicted positives and zero false positives, the 95% lower bound is ~0.83 (devtools) / ~0.69 (SaaS)
+
 
 The first honest test of whether the ICP is right is reply and meeting data from
 Project 4. That has not happened yet.
@@ -268,23 +272,43 @@ state. Later projects consume these records rather than rebuilding their own mod
 
 ## Known limitations
 
-- Scoring is a **self-consistency check, not validation** (see above).
-- No holdout — the threshold was tuned on the same labels it is reported on.
-- Small sample — 30 pairs per config.
-- The 130 **exact** GitHub matches rest on name-equality and have **no independent
-  check**; only the verified (31) and manual (18) tiers carry evidence.
+Every gap below is real and stated up front, so none of it can be discovered as a
+surprise.
+
+**Scoring validity**
+- Scoring is a **rule-consistency check, not validation** — the labels share the
+  score's own logic, so it measures agreement with my definition, not correctness.
+- No holdout: the threshold was tuned on the same 60 pairs it is reported on.
+- Small sample: 30 pairs per config, so a single label moves the numbers.
+- The first honest test is reply and meeting data from Project 4. Not done yet.
+
+**Matching**
+- The 130 **exact** GitHub matches rest on name-equality and have no independent
+  check; only the verified (31) and manual (18) tiers carry evidence.
+- Known false match: Notion resolved to `notion`, an unrelated organisation called
+  Trove. Notion's real org is `makenotion`.
+- `github_last_push` records the most-starred repo's last push, not the org's
+  latest, and `repo_count` caps at 100 without pagination. Both understate
+  activity for large orgs — Amplitude stores `2023-12-12` while its org last
+  pushed `2026-11-03`. Fixing this changes `active_github` and therefore the
+  qualified counts, so it needs a full re-enrichment rather than a patch.
+
+**Data coverage**
 - 33 companies came back `sells_to = unknown` and I have not hand-checked them.
   They lose the audience weight, so this is a real, unmeasured error source.
-- Reach is thin: only 25 of 138 qualified accounts had a contact (18%). 113 have
-  nobody to email yet. Closing that gap is the next job.
+- Reach is thin: only 25 of the 138 qualified accounts have a contact (18%).
+  113 have nobody to email yet. Closing that gap is the next job.
 - Emails are predicted patterns, not verified addresses. Hunter's free tier could
-  not cover ~700 candidates, so I documented the gap instead of pretending.
-- Idempotency is proven on identical input only, not yet on overlapping new data.
-- No integration tests at the API boundaries (fixtures/mocks).
-- No CRM or workflow tooling in this project — no Clay, no n8n, no HubSpot. Those
-  come in Projects 2 and 5.
+  not cover ~700 candidates, so the gap is documented rather than papered over.
 - GitHub and Apollo as contact sources: skipped for now. GitHub org members are
   mostly IC engineers, and Apollo's free credits don't stretch far.
+
+**Engineering**
+- Idempotency is proven on identical input only, not yet on overlapping new data.
+- No integration tests at the API boundaries (fixtures/mocks).
+- No CRM or workflow tooling — no Clay, no n8n, no HubSpot. Those come in
+  Projects 2 and 5.
+
 
 ## Decisions
 
@@ -300,4 +324,4 @@ tests, one-command setup) and the data contract for Projects 2-5.
 
 Optional future work: blind-labelling the scoring eval, and a short demo video.
 
-Next: Project 2 — the market signal detector.
+Next: Project 2 — the market signal detector: github.com/kanchipareek/gtm-signal-detector.
