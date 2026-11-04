@@ -72,9 +72,13 @@ quiet is the whole point.
 **5 Oct — scoring must not *disqualify* on a missing audience.**
 Most dev-tools/AI companies sell to businesses; killing a lead because the page
 didn't say so is dumb. So `sells_to = unknown` is never a disqualifier.
-Correction (7 Oct): I called it "neutral" before and that was wrong. It's not
-disqualified, but it *does* loses the business weight (30 points in generic_b2b_saas, 5 in devtools_ai_infra). That's a penalty,
-not neutral. Anthropic is the proof — it loses those 30 points and lands in neither list to it loses those 30 points in generic_b2b_saas and still clears the dev-tools threshold at 70.
+Correction (7 Oct): I called it "neutral" before, and that was wrong. It is not
+disqualified, but it does lose the business weight — 30 points in
+`generic_b2b_saas`, 5 in `devtools_ai_infra`. That is a penalty, not neutral.
+Anthropic is the example: it loses those 30 points in the SaaS config and is
+scored on the signals it does have. Whether 30 is the right size is a question
+for the scoring eval, not a guess.
+
 
 **5 Oct — always report the baseline next to the agreement.**
 My eval set is a curated tech list, ~90% "accept". So "84% agreement" sounds bad

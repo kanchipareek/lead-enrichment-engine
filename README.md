@@ -259,7 +259,7 @@ Project 4. That has not happened yet.
 `src/` holds utilities added after the first draft: structured logging (`log.py`),
 bounded retry with backoff and a rate limiter (`retry.py`), typed value contracts
 for extracted fields (`schemas.py`), and config/secrets from environment variables
-(`config.py`). Each has unit tests in `tests/`.
+(`config.py`). Only `retry` and `schemas` have tests, in `tests/`.
 
 They are tested but not yet wired into every script — most scripts still use
 `print` and their own retry loops. Wiring them in is the next refactor.
@@ -319,8 +319,7 @@ a similarity score alone, and why failures are stored as nulls and never guessed
 ## Status
 
 Done: setup, clean, crawl, GitHub matching, AI extraction, ICP scoring, contact and
-email enrichment — plus engineering depth (logging, retry, typed schemas, unit
-tests, one-command setup) and the data contract for Projects 2-5.
+email enrichment — — plus one-command setup (`run.py`) and the data contract for Projects 2-5.
 
 Optional future work: blind-labelling the scoring eval, and a short demo video.
 
