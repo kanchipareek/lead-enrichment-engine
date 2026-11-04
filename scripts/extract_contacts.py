@@ -1,11 +1,17 @@
 import json, os, re, sqlite3, sys, time, urllib.request, urllib.error
 from pathlib import Path
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from env import load_env
+load_env()
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "lead_enrichment.db"
 GROQ_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL = "llama-3.3-70b-versatile"
+GROQ_MODEL = "openai/gpt-oss-120b"
 PAGES = ["about_text", "careers_text", "homepage_text", "product_text"]
 MAX_CHARS = 6000
 

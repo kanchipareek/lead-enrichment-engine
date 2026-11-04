@@ -6,7 +6,7 @@ print("starts with gsk_:", key.startswith("gsk_"))
 print("has leading/trailing space:", key != key.strip())
 
 body = json.dumps({
-    "model": "llama-3.3-70b-versatile",
+    "model": "openai/gpt-oss-120b",
     "messages": [{"role": "user", "content": "say ok"}],
 }).encode()
 req = urllib.request.Request(

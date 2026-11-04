@@ -6,7 +6,7 @@ DB = ROOT / "data" / "lead_enrichment.db"
 EVAL = ROOT / "data" / "eval_set.csv"
 STATE = ROOT / "data" / "batch_state.json"
 KEY = os.environ.get("GEMINI_API_KEY", "")
-MODEL = "gemini-3.7-flash"
+MODEL = "gemini-3.8-flash"
 BASE = "https://generativelanguage.googleapis.com/v1beta"
 
 PROMPT = """You extract structured facts about ONE company from text copied from that company's OWN website.

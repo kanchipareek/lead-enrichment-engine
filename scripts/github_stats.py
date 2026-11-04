@@ -1,6 +1,10 @@
 import json, os, sqlite3, time, urllib.request, urllib.error
 from pathlib import Path
-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from env import load_env
+load_env()
 ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "lead_enrichment.db"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")

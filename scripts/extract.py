@@ -1,11 +1,16 @@
 import csv, json, os, sqlite3, sys, time, urllib.request, urllib.error
 from pathlib import Path
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+from env import load_env
+load_env()
 
 ROOT = Path(__file__).resolve().parent.parent
 DB = ROOT / "data" / "lead_enrichment.db"
 EVAL = ROOT / "data" / "eval_set.csv"
 KEY = os.environ.get("GEMINI_API_KEY", "")
-MODEL = "gemini-3.5-flash"
+MODEL = "gemini-3.8-flash"
 DELAY = 12.0
 
 PROMPT = """You extract structured facts about ONE company from text copied from that company's OWN website.
