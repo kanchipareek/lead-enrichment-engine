@@ -1,1 +1,1 @@
-pandas
+# stdlib only - nothing to install

@@ -53,7 +53,7 @@ Every `company_fields` row carries `source` (which stage produced it),
 
 A company qualifies for a config when `score >= threshold` (from `icp_thresholds`).
 Read it from the `qualified` view; `company_scores` holds the per-company,
-per-config score and its `reason` (which features fired).
+per-config score. Which features fired is visible in company_features.
 Two configs: `generic_b2b_saas`, `devtools_ai_infra`.
 
 ## Stable vs free to change
@@ -78,7 +78,7 @@ schema but is not populated).
 | `company_features` | one company x one feature (the scored signals) |
 | `company_scores` | one company x one config (the score) |
 | `qualified` | a company that cleared the threshold for a config |
-| `disqualified` | a company that did not |
+| `disqualified` | a company hard-excluded because it sells to consumers |
 
 ## How to consume it
 
@@ -86,4 +86,4 @@ schema but is not populated).
 import sqlite3
 db = sqlite3.connect("data/lead_enrichment.db")
 rows = db.execute("SELECT DISTINCT company_id FROM qualified").fetchall()
-
+```          

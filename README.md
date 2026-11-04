@@ -75,15 +75,12 @@ value + source + source_url + timestamp.
 ```
 lead-enrichment-engine/
 ├── data/
-│   ├── raw/                      # raw source CSVs
-│   ├── eval/                     # eval artifacts
-│   ├── processed/                # processed output
-│   ├── raw_companies.csv         # the raw company list
-│   ├── eval_set.csv
-│   ├── eval_labels.csv
-│   ├── idempotency_snapshot.json
-│   └── lead_enrichment.db        # the SQLite database
-├── scripts/                      # pipeline + eval + audit scripts
+│   ├── raw_companies.csv         # the raw company list (4 sources)
+│   ├── eval_set.csv              # 50-company hand-labelled eval set
+│   ├── eval_labels.csv           # hand labels for that set
+│   ├── idempotency_snapshot.json # (generated, gitignored)
+│   └── lead_enrichment.db        # SQLite database (generated, gitignored)
+├── scripts/
 │   ├── run_sql.py                # executes a .sql file
 │   ├── import_raw.py             # load raw CSVs
 │   ├── show_schema.py            # print tables / columns
@@ -91,7 +88,7 @@ lead-enrichment-engine/
 │   ├── crawl_summary.py          # crawl stats
 │   ├── github_find.py            # GitHub org search
 │   ├── github_verify.py          # domain-evidence verification
-│   ├── github_resolve.py         # match decisions
+│   ├── github_resolve.py         # interactive match review
 │   ├── github_homepage_links.py  # footer audit
 │   ├── github_stats.py           # repo stats
 │   ├── manual_orgs.py            # hand-found org pairs
@@ -108,7 +105,7 @@ lead-enrichment-engine/
 │   ├── audit_values.py           # per-field audit
 │   ├── check_idempotency.py      # idempotency snapshot
 │   ├── test_idempotency.py       # re-run diff
-│   ├── score_report.py           # scoring report + breakdown
+│   ├── score_report.py           # scoring report
 │   ├── score_distribution.py     # score histogram
 │   ├── make_scoring_eval.py      # sampling for the scoring check
 │   ├── label_scoring.py          # labelling loop
@@ -119,7 +116,7 @@ lead-enrichment-engine/
 │   ├── extract_contacts.py       # contact extraction
 │   ├── generate_candidates.py    # email waterfall
 │   └── test_groq.py              # Groq probe
-├── sql/                          # every transformation, in order
+├── sql/                          # cleaning, dedupe and scoring rules
 │   ├── schema.sql
 │   ├── 01_normalize.sql
 │   ├── 02_exact_dedupe.sql
@@ -130,22 +127,26 @@ lead-enrichment-engine/
 │   └── 07_score.sql
 ├── src/
 │   ├── init_db.py                # create the database from sql/schema.sql
-│   ├── config.py                 # settings from env vars (secrets never committed)
+│   ├── config.py                 # settings from environment variables
 │   ├── log.py                    # structured logging
 │   ├── retry.py                  # bounded backoff + rate limiter
 │   └── schemas.py                # typed value contracts for extracted fields
 ├── tests/
 │   └── test_core.py              # unit tests (retry, schemas)
 ├── docs/
-│   └── CONTRACT.md               # the stable data contract for Projects 2-5
-├── run.py                        # one command: runs the whole pipeline in order
-├── .env.example                  # template for API keys (real .env is gitignored)
+│   ├── CONTRACT.md               # the stable data contract for Projects 2-5
+│   └── star_story.md             # STAR write-up (interview prep)
+├── run.py                        # runs the pipeline in order
+├── .env.example                  # template for API keys
 ├── .gitignore
 ├── decisions.md
-└── README.md
+├── README.md
+└── requirements.txt
+
 ```
 
-## Sample output
+## Illustrative output (abridged)
+Shape of the data, not verbatim terminal output.
 
 ```
 $ python scripts/score_report.py
@@ -248,16 +249,16 @@ precision could be as low as ~0.89.
 The first honest test of whether the ICP is right is reply and meeting data from
 Project 4. That has not happened yet.
 
+
 ## Engineering depth
 
-The pipeline is also built to be maintained, not just to work:
+`src/` holds utilities added after the first draft: structured logging (`log.py`),
+bounded retry with backoff and a rate limiter (`retry.py`), typed value contracts
+for extracted fields (`schemas.py`), and config/secrets from environment variables
+(`config.py`). Each has unit tests in `tests/`.
 
-- **Structured logging** (`src/log.py`) instead of scattered prints.
-- **Bounded retry with backoff and a rate limiter** (`src/retry.py`).
-- **Typed value contracts** (`src/schemas.py`) validating what the extractor may return.
-- **Unit tests** (`tests/`) for the retry and schema logic.
-- **Config and secrets** in environment variables, with a committed `.env.example`.
-- **One-command setup** (`run.py`).
+They are tested but not yet wired into every script — most scripts still use
+`print` and their own retry loops. Wiring them in is the next refactor.
 
 ## The data contract
 
