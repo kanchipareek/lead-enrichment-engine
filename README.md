@@ -308,6 +308,8 @@ surprise.
 - No integration tests at the API boundaries (fixtures/mocks).
 - No CRM or workflow tooling — no Clay, no n8n, no HubSpot. Those come in
   Projects 2 and 5.
+- `src/` holds logging, retry and schema utilities that are tested but not yet
+  wired into the scripts; the pipeline still uses `print` and its own retry loops.
 
 
 ## Decisions
